@@ -1,0 +1,191 @@
+﻿<UserControl x:Class="SuperTipDemo.SL.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"    
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/controls"      
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+    mc:Ignorable="d"
+    d:DesignHeight="480" d:DesignWidth="640">
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.ColumnSpan="2">
+                <dx:GroupFrame Header="Select theme" Margin="5">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <RadioButton Content="DeepBlue" IsChecked="True" Margin="5" Checked="thRadioButton_Checked" />
+                        <RadioButton Content="LightGray" Margin="5" Checked="thRadioButton_Checked" />
+                        <RadioButton Content="Office2007Black" Margin="5" Checked="thRadioButton_Checked" />
+                        <RadioButton Content="Office2007Blue" Margin="5" Checked="thRadioButton_Checked" />
+                        <RadioButton Content="Office2007Silver" Margin="5" Checked="thRadioButton_Checked" />
+                    </StackPanel>
+                </dx:GroupFrame>                
+            </StackPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="0" Grid.Row="1" Margin="5">
+                <RadioButton Content="Standard Controls" Margin="2,5" Checked="ctrlRadioButton_Checked" IsChecked="True" />
+                <RadioButton Content="Bars" Margin="2,5" Checked="ctrlRadioButton_Checked" />
+                <RadioButton Content="Ribbon" Margin="2,5" Checked="ctrlRadioButton_Checked" />                
+            </StackPanel>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="0.5*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Create SuperTip in Code:" Grid.Row="0" HorizontalAlignment="Center" FontSize="14" />
+                <Grid x:Name="gridCode" Grid.Row="1">
+                    <Grid Name="stdCtrlFromCode">
+                        <Button Name="stdBtn" Content="Button" Height="25" Width="100" VerticalAlignment="Top" />
+                    </Grid>
+                    <Grid Name="barFromCode" Visibility="Collapsed">
+                        <dxb:BarManager>
+                            <dxb:BarManager.Items>
+                                <dxb:BarButtonItem Name="barBtn" Content="Bar Item" Hint="New" />
+                            </dxb:BarManager.Items>
+                            <dxb:BarManager.Bars>
+                                <dxb:Bar>
+                                    <dxb:Bar.ItemLinks>
+                                        <dxb:BarButtonItemLink BarItemName="barBtn" />
+                                    </dxb:Bar.ItemLinks>
+                                </dxb:Bar>
+                            </dxb:BarManager.Bars>
+                        </dxb:BarManager>
+                    </Grid>
+                    <Grid Name="RibbonFromCode" Visibility="Collapsed">
+                        <dxb:BarManager Name="RibbonBarManagerCode">
+                            <dxb:BarManager.Items>
+                                <dxb:BarButtonItem Name="bNewCode" Content="New" Glyph="new-16x16.png" LargeGlyph="new-32x32.png" />
+                            </dxb:BarManager.Items>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <dxr:RibbonControl x:Name="RibbonControlCode" ApplicationButtonLargeIcon="ribbon-application-32x32.png" ApplicationButtonText="File" PageCategoryAlignment="Right" MinimizationButtonVisibility="Visible">
+                                    <dxr:RibbonControl.ToolbarItemLinks>
+                                        <dxb:BarButtonItemLink BarItemName="bNewCode" />
+                                    </dxr:RibbonControl.ToolbarItemLinks>
+                                    <dxr:RibbonDefaultPageCategory>
+                                        <dxr:RibbonPage Caption="Home">
+                                            <dxr:RibbonPageGroup Caption="Document">
+                                                <dxb:BarItemLink BarItemName="bNewCode" RibbonStyle="Large" />
+                                            </dxr:RibbonPageGroup>
+                                        </dxr:RibbonPage>
+                                    </dxr:RibbonDefaultPageCategory>
+                                </dxr:RibbonControl>
+                            </Grid>
+                        </dxb:BarManager>
+                    </Grid>
+                </Grid>
+                <TextBlock Text="Create SuperTip in XAML:" Grid.Row="2" HorizontalAlignment="Center" FontSize="14" />
+                <Grid x:Name="gridXAML" Grid.Row="3">
+                    <Grid Name="stdCtrlFromXaml">
+                        <Button Content="Button" Height="25" Width="100" VerticalAlignment="Top">
+                            <dx:FrameworkElementHelper.ToolTip>
+                                <dx:SuperTipControl>
+                                    <dx:SuperTip>
+                                        <dx:SuperTipHeaderItem Content="New" />
+                                        <dx:SuperTipItem Content="Create a new document" Glyph="new-32x32.png">
+                                            <dx:SuperTipItem.LayoutStyle>
+                                                <Style TargetType="dx:Items2Panel">
+                                                    <Setter Property="Alignment" Value="Right" />
+                                                    <Setter Property="HorizontalIndent" Value="20" />
+                                                </Style>
+                                            </dx:SuperTipItem.LayoutStyle>
+                                        </dx:SuperTipItem>
+                                        <dx:SuperTipItemSeparator />
+                                        <dx:SuperTipItem Content="Opens a new document in a new tab" />
+                                    </dx:SuperTip>
+                                </dx:SuperTipControl>
+                            </dx:FrameworkElementHelper.ToolTip>
+                        </Button>
+                    </Grid>
+                    <Grid Name="barFromXAML" Visibility="Collapsed">
+                        <dxb:BarManager>
+                            <dxb:BarManager.Items>
+                                <dxb:BarButtonItem Name="bt" Content="Bar Item" Hint="New">
+                                    <dxb:BarButtonItem.SuperTip>
+                                        <dx:SuperTip>
+                                            <dx:SuperTipHeaderItem Content="New" />
+                                            <dx:SuperTipItem Content="Create a new document" Glyph="new-32x32.png">
+                                                <dx:SuperTipItem.LayoutStyle>
+                                                    <Style TargetType="dx:Items2Panel">
+                                                        <Setter Property="Alignment" Value="Right" />
+                                                        <Setter Property="HorizontalIndent" Value="20" />
+                                                    </Style>
+                                                </dx:SuperTipItem.LayoutStyle>
+                                            </dx:SuperTipItem>
+                                            <dx:SuperTipItemSeparator />
+                                            <dx:SuperTipItem Content="Opens a new document in a new tab" />
+                                        </dx:SuperTip>
+                                    </dxb:BarButtonItem.SuperTip>
+                                </dxb:BarButtonItem>
+                            </dxb:BarManager.Items>
+                            <dxb:BarManager.Bars>
+                                <dxb:Bar>
+                                    <dxb:Bar.ItemLinks>
+                                        <dxb:BarButtonItemLink BarItemName="bt" />
+                                    </dxb:Bar.ItemLinks>
+                                </dxb:Bar>
+                            </dxb:BarManager.Bars>
+                        </dxb:BarManager>
+                    </Grid>
+                    <Grid Name="RibbonFromXAML" Visibility="Collapsed">
+                        <dxb:BarManager Name="RibbonBarManager">
+                            <dxb:BarManager.Items>
+                                <dxb:BarButtonItem Name="bNew" Content="New" Glyph="new-16x16.png" LargeGlyph="new-32x32.png" KeyGesture="Ctrl+N">
+                                    <dxb:BarButtonItem.SuperTip>
+                                        <dx:SuperTip>
+                                            <dx:SuperTipHeaderItem Content="New" />
+                                            <dx:SuperTipItem Content="Create a new document" Glyph="new-32x32.png">
+                                                <dx:SuperTipItem.LayoutStyle>
+                                                    <Style TargetType="dx:Items2Panel">
+                                                        <Setter Property="Alignment" Value="Right" />
+                                                        <Setter Property="HorizontalIndent" Value="20" />
+                                                    </Style>
+                                                </dx:SuperTipItem.LayoutStyle>
+                                            </dx:SuperTipItem>
+                                            <dx:SuperTipItemSeparator />
+                                            <dx:SuperTipItem Content="Opens a new document in a new tab" />
+                                        </dx:SuperTip>
+                                    </dxb:BarButtonItem.SuperTip>
+                                </dxb:BarButtonItem>
+                            </dxb:BarManager.Items>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <dxr:RibbonControl x:Name="RibbonControl" ApplicationButtonLargeIcon="ribbon-application-32x32.png" ApplicationButtonText="File" PageCategoryAlignment="Right" MinimizationButtonVisibility="Visible">
+                                    <dxr:RibbonControl.ToolbarItemLinks>
+                                        <dxb:BarButtonItemLink BarItemName="bNew" />
+                                    </dxr:RibbonControl.ToolbarItemLinks>
+                                    <dxr:RibbonDefaultPageCategory>
+                                        <dxr:RibbonPage Caption="Home">
+                                            <dxr:RibbonPageGroup Caption="Document">
+                                                <dxb:BarItemLink BarItemName="bNew" RibbonStyle="Large" />
+                                            </dxr:RibbonPageGroup>
+                                        </dxr:RibbonPage>
+                                    </dxr:RibbonDefaultPageCategory>
+                                </dxr:RibbonControl>
+                            </Grid>
+                        </dxb:BarManager>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
